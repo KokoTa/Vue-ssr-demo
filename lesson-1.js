@@ -1,6 +1,14 @@
 const Vue = require('vue')
 const server = require('express')()
-const render = require('vue-server-renderer').createRenderer()
+const vueServerRenderer = require('vue-server-renderer')
+const fs = require('fs')
+
+// html模板（页面模板）
+const template = fs.readFileSync('./index.template.html', 'utf-8')
+// 将模板传入渲染器中
+const render = vueServerRenderer.createRenderer({
+  template,
+})
 
 server.get('*', (req, res) => {
   // 创建Vue实例
@@ -8,25 +16,17 @@ server.get('*', (req, res) => {
     data: {
       msg: '你好'
     },
-    template: '<div>{{ msg }}</div>'
+    template: '<div>{{ msg }}</div>' // 注入模板
   })
-  // 渲染Vue实例, html是实例的template
+  // Vue实例中的template会插入到模板中
+  // html参数是页面模板 + 注入模板
   render.renderToString(app, (err, html) => {
     if (err) {
       res.status(500).end('Server Error')
       return
     }
     // 返回拼装好的html
-    res.end(`
-      <!DOCTYPE html>
-      <html lang="en">
-        <head> 
-          <meta charset="utf-8">
-          <title>Hello</title>
-        </head>
-        <body>${html}</body>
-      </html>
-    `)
+    res.end(html)
   })
 })
 
