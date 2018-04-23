@@ -32,7 +32,7 @@ server.get('*', (req, res) => {
   }
   // 创建Vue实例
   const app = createApp(context)
-  // Vue实例中的template会插入到模板中
+  // Vue实例中的template会插入到页面模板中
   // html参数是页面模板 + 注入模板
   render.renderToString(app, innerObj, (err, html) => {
     if (err) {
