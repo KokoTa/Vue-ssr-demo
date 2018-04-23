@@ -1,12 +1,15 @@
 /**
- * 这是一个普通的Vue前端渲染项目
+ * 改造成后端渲染
+ * 此文件从创建实例改写为输出一个生成实例的函数
+ * https://github.com/webpack/webpack/issues/4039
+ * You can mix require and export. You can't mix import and module.exports.
  */
-import Vue from 'vue'
-import App from './App.vue'
+const Vue = require('vue')
+const App = require('./App.vue').default
 
-const app = new Vue({
-  el: '#app',
-  components: {
-    App,
-  }
-})
+module.exports =  function createApp() {
+  const app = new Vue({
+    render: h => h(App)
+  })
+  return app
+}

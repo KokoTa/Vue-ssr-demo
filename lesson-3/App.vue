@@ -14,6 +14,15 @@ export default {
   components: {
     Foo,
     Bar
+  },
+  beforeCreate() {
+      console.log('App beforeCreate');
+  },
+  beforeMount() {
+      console.log('App beforeMount');
+  },
+  mounted() {
+      console.log('App mounted');
   }
 }
 </script>
