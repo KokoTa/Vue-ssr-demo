@@ -1,5 +1,5 @@
 /**
- * 后端渲染（不包含 Ajax 数据）
+ * 后端渲染（包含 Ajax 数据）
  */
 const express = require('express')
 const server = express()

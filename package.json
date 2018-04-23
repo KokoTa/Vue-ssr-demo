@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "webpack --config webpack.client.conf.js",
+    "build": "webpack --config webpack.client.conf.js && webpack --config webpack.server.conf.js ",
+    "start": "supervisor server.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,11 +15,14 @@
     "babel-loader": "^7.1.4",
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
+    "html-webpack-plugin": "^2.30.1",
     "vue": "^2.5.16",
     "vue-loader": "^14.2.2",
     "vue-server-renderer": "^2.5.16",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^3.10.0"
+    "vuex": "^3.0.1",
+    "webpack": "^3.10.0",
+    "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0"

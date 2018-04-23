@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="trigger">
     <h1>APP.vue</h1>
     <foo></foo>
     <bar></bar>
@@ -16,13 +16,18 @@ export default {
     Bar
   },
   beforeCreate() {
-      console.log('App beforeCreate');
+    console.log('App beforeCreate');
   },
   beforeMount() {
-      console.log('App beforeMount');
+    console.log('App beforeMount');
   },
   mounted() {
-      console.log('App mounted');
+    console.log('App mounted');
+  },
+  methods: {
+    trigger() {
+      console.log('触发点击事件');
+    }
   }
 }
 </script>
