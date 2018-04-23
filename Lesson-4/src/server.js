@@ -11,7 +11,6 @@ server.use(express.static('dist'))
 const template = fs.readFileSync(path.resolve(__dirname, 'dist/index.ssr.html'), 'utf-8')
 // 获取渲染器
 const vueServerRenderer = require('vue-server-renderer')
-// createBundleRenderer 需要一个入口文件，即 bundle
 const render = vueServerRenderer.createRenderer({
   template
 })

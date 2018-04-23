@@ -3,8 +3,8 @@
  */
 import Vue from 'vue'
 import Router from 'vue-router'
-import Foo from './components/Foo.vue'
 
+const Foo = () => import('./components/Foo.vue')  // 路由懒加载需要用到 babel-plugin-syntax-dynamic-import 插件
 Vue.use(Router)
 
 export function createRouter () {
