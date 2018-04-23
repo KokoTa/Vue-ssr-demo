@@ -549,14 +549,14 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
- * 和前端Vue的app.js一样，这里生成实例并挂载
+ * 和上一步(一个正常的前端Vue)app.js一样，这里生成实例并挂载
  */
 const createApp = __webpack_require__(6);
 
 // 创建实例
 const app = createApp();
 
-// 挂载实例，这里假定 App.vue 模板中根元素具有 `id="app"`
+// 挂载实例，这里假定 App.vue 模板中根元素具有 id="app"
 app.$mount('#app');
 
 /***/ }),
@@ -565,7 +565,7 @@ app.$mount('#app');
 
 /**
  * 改造成后端渲染
- * 从创建实例改写成生成实例的函数
+ * 此文件从创建实例改写为输出一个生成实例的函数
  * https://github.com/webpack/webpack/issues/4039
  * You can mix require and export. You can't mix import and module.exports.
  */

@@ -383,7 +383,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
- * 导出函数
+ * 这里我们导出实例生成函数
  */
 const createApp = __webpack_require__(5);
 
@@ -395,7 +395,7 @@ module.exports = createApp;
 
 /**
  * 改造成后端渲染
- * 从创建实例改写成生成实例的函数
+ * 此文件从创建实例改写为输出一个生成实例的函数
  * https://github.com/webpack/webpack/issues/4039
  * You can mix require and export. You can't mix import and module.exports.
  */
