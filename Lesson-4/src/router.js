@@ -3,7 +3,7 @@
  */
 import Vue from 'vue'
 import Router from 'vue-router'
-import Foo from './components/Foo'
+import Foo from './components/Foo.vue'
 
 Vue.use(Router)
 
@@ -13,7 +13,7 @@ export function createRouter () {
     routes: [
       {
         path: '/index',
-        components: Foo,
+        component: Foo,
       },
       {
         path: '*',
