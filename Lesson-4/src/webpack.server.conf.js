@@ -10,6 +10,7 @@ module.exports = merge(base, {
   },
   output: {
     filename: '[name].js',
+    chunkFilename: '[name].bundle.js', // 代码分割的文件名
     libraryTarget: 'commonjs2' // 按照 commonjs 规范打包
   },
   plugins: [

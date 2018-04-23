@@ -15,10 +15,6 @@ export function createRouter () {
         path: '/index',
         component: Foo,
       },
-      {
-        path: '*',
-        redirect: '/index'
-      }
     ]
   })
 }

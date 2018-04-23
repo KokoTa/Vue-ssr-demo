@@ -11170,9 +11170,6 @@ function createRouter() {
     routes: [{
       path: '/index',
       component: Foo
-    }, {
-      path: '*',
-      redirect: '/index'
     }]
   });
 }
