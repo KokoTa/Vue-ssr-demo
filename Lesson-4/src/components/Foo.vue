@@ -12,7 +12,6 @@ export default {
   // 这个函数是在后端触发的
   asyncData ({ store, route }) {
     // 触发 action 后，会返回 Promise
-    console.log(route.params)
     return store.dispatch('fetchItem', route.params.id)
   },
   computed: {

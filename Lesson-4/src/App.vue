@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="a">
     <h1>App.vue</h1>
     <router-view></router-view>
   </div>
@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style>
-.app {
+.a {
   color: pink;
 }
 </style>
