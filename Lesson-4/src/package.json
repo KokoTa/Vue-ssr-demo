@@ -5,29 +5,9 @@
   "main": "index.js",
   "scripts": {
     "client": "webpack --config webpack.client.conf.js",
-    "build": "webpack --config webpack.client.conf.js && webpack --config webpack.server.conf.js ",
+    "build": "webpack --config webpack.client.conf.js && webpack --config webpack.server.conf.js && npm start",
     "start": "supervisor server.js"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "css-loader": "^0.28.11",
-    "express": "^4.16.3",
-    "html-webpack-plugin": "^2.30.1",
-    "vue": "^2.5.16",
-    "vue-loader": "^14.2.2",
-    "vue-router": "^3.0.1",
-    "vue-server-renderer": "^2.5.16",
-    "vue-template-compiler": "^2.5.16",
-    "vuex": "^3.0.1",
-    "webpack": "^3.10.0",
-    "webpack-merge": "^4.1.1"
-  },
-  "devDependencies": {
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "clean-webpack-plugin": "^0.1.19"
-  }
+  "license": "ISC"
 }

@@ -5,7 +5,9 @@ const express = require('express')
 const server = express()
 const fs = require('fs')
 const path = require('path')
+const favicon = require('serve-favicon')
 server.use(express.static('dist'))
+server.use(favicon(path.join(__dirname, 'favicon.ico')))
 
 // 获取模板，dist/index.ssr.html 是打包生成的
 const template = fs.readFileSync(path.resolve(__dirname, 'dist/index.ssr.html'), 'utf-8')
@@ -20,6 +22,7 @@ const createApp = require('./dist/server.js').default
 
 server.get('*', (req, res) => {
   const context = { url: req.url }
+  // createApp新建实例 -> 查找路由 -> 匹配路由和组件 -> 返回实例 -> 进行渲染
   createApp(context).then(app => {
     render.renderToString(app, (err, html) => {
       if (err) {
