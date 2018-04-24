@@ -1,6 +1,6 @@
 # 提示
 
-1. 这里的`index.html、index.ssr.html、webpack配置文件`为Lesson-3源文件，server.js中有部分为Lesson-3源文件。（当然随着进度，已经改得面目全非了，苦笑~）  
+1. 这里的`index.html、index.ssr.html、webpack配置文件`为Lesson-3源文件，server.js中有部分为Lesson-3源文件。（当然随着进度推进已经改得面目全非了，苦笑~）  
 
 2. `entry-server.js` 和 `client-server.js` 的区别？前者每次收到请求时都会在服务端生成一个实例用于路由匹配、状态管理和数据操作，比如预获取数据存储于服务端实例状态中，然后通过html传到客户端。后者如同字面意义上就是前端实例了，它接收后端实例传过来的html数据，替换前端实例的状态，也就是说SSR的页面传到浏览器时是自带数据的。  
 
@@ -8,6 +8,6 @@
 
 4. 遵循官方的webpack配置可以少踩许多坑，例如某产生 bug 的 commit 就是因为webpack和模板书写错误而产生的。  
 
-5. 注意 Lesson-4 和 Lesson-5 中 `entry-client` 的使用区别，前者打包后作为 `createBundleRenderer` 的选项；后者打包后直接在前端进行引入加载。  
+5. 注意 Lesson-4 和 Lesson-3 中 `entry-client` 的使用区别，前者打包后作为 `createBundleRenderer` 的选项；后者打包后直接在前端进行引入加载。  
 
 **SSR流程如下**：请求 -> 后端接收 -> 生成后端实例 -> 路由匹配 -> 组件匹配 -> 拿到组件中的数据获取函数 -> 执行数据获取操作 -> 数据存储在后端实例状态中 -> 将数据嵌入到使用模板生成的html中 -> 响应前端 -> 前端生成实例并将数据赋予前端实例状态 -> 从状态中获取数据并渲染相应组件 -> 页面渲染完成  
