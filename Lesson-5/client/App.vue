@@ -1,22 +1,22 @@
 <template>
   <div id="test">
-    <Todo></Todo>
+    <Todo />
   </div>
 </template>
 
 <script>
-import Todo from "./todo/Todo";
+import Todo from './todo/Todo'
 
 export default {
   components: {
     Todo
   },
-  data() {
+  data () {
     return {
-      text: "Hello World"
-    };
+      text: 'Hello World'
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

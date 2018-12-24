@@ -1,18 +1,18 @@
 <template>
   <div class="todo">
-    <div class="mask"></div>
+    <div class="mask" />
     <div class="content">
-      <Header></Header>
-      <Main></Main>
-      <Footer></Footer>
+      <Header />
+      <Main />
+      <Footer />
     </div>
   </div>
 </template>
 
 <script>
-import Header from "./views/Header";
-import Main from "./views/Main";
-import Footer from "./views/Footer";
+import Header from './views/Header'
+import Main from './views/Main'
+import Footer from './views/Footer'
 
 export default {
   components: {
@@ -20,10 +20,10 @@ export default {
     Main,
     Footer
   },
-  data() {
-    return {};
+  data () {
+    return {}
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

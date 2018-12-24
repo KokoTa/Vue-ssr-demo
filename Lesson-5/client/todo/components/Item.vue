@@ -1,9 +1,24 @@
 <template>
   <div :class="['item', todo.completed ? 'completed' : '']">
-    <input :id="todo.id" class="toggle" type="checkbox" v-model="todo.completed">
-    <label :for="todo.id" class="toggle-label"></label>
-    <span class="content">{{todo.content}}</span>
-    <button class="delete" @click="handleDelete(todo)">X</button>
+    <input
+      :id="todo.id"
+      v-model="todo.completed"
+      class="toggle"
+      type="checkbox"
+    >
+    <label
+      :for="todo.id"
+      class="toggle-label"
+    />
+    <span class="content">
+      {{ todo.content }}
+    </span>
+    <button
+      class="delete"
+      @click="handleDelete(todo)"
+    >
+      X
+    </button>
   </div>
 </template>
 
@@ -15,15 +30,15 @@ export default {
       required: true
     }
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
   methods: {
-    handleDelete(todo) {
-      this.$emit("delete", todo.id);
+    handleDelete (todo) {
+      this.$emit('delete', todo.id)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

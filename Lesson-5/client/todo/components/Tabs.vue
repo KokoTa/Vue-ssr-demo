@@ -1,14 +1,23 @@
 <template>
   <div class="tabs">
-    <span class="count">{{unFinishedTodoLength}} items left</span>
-    <span class="clear" @click="handleClear">Clear completed</span>
+    <span class="count">
+      {{ unFinishedTodoLength }} items left
+    </span>
+    <span
+      class="clear"
+      @click="handleClear"
+    >
+      Clear completed
+    </span>
     <div class="status">
       <span
-        :class="[filter === state ? 'active' : '']"
         v-for="(state, index) in status"
         :key="index"
+        :class="[filter === state ? 'active' : '']"
         @click="handleFilter(state)"
-      >{{state}}</span>
+      >
+        {{ state }}
+      </span>
     </div>
   </div>
 </template>
@@ -25,31 +34,31 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
-      status: ["all", "active", "completed"],
+      status: ['all', 'active', 'completed'],
       unFinishedTodoLength: this.todos.length
-    };
-  },
-  methods: {
-    handleFilter(state) {
-      this.$emit("toggle", state);
-    },
-    handleClear() {
-      this.$emit("clearCompleted");
     }
   },
   watch: {
     todos: {
       deep: true, // 不能用 computed，因为它无法监听数组内部的对象的属性值
-      handler() {
+      handler () {
         this.unFinishedTodoLength = this.todos.filter(
           todo => !todo.completed
-        ).length;
+        ).length
       }
     }
+  },
+  methods: {
+    handleFilter (state) {
+      this.$emit('toggle', state)
+    },
+    handleClear () {
+      this.$emit('clearCompleted')
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

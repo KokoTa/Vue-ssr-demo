@@ -1,15 +1,17 @@
 <template>
   <header class="header">
-    <h1 class="title">TODO DEMO</h1>
+    <h1 class="title">
+      TODO DEMO
+    </h1>
   </header>
 </template>
 
 <script>
 export default {
-  data() {
-    return {};
+  data () {
+    return {}
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
