@@ -6,28 +6,32 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const merge = require('webpack-merge')
 
 const isDev = process.env.NODE_ENV === 'development'
+// practice 环境是用来练习 Vue API 的环境，配置上和开发环境有一点差异
+const isPractice = process.env.NODE_ENV === 'practice'
 
-// NOTE：
-// package.json 中使用了 cross-env 统一了不同平台下的环境变量的设置问题
-// transform-vue-jsx 用以支持 vue 中的 jsx 语法
-// vue-style-loader 包含了 style-loader 将 CSS 提取到 style 标签的功能
-// url-loader 依赖 file-loade，配置 url-loader 后，file-lodaer 就不用配置了
-// 使用 rimraf 删除之前构建的文件
-// vue-loader 中可以设置 CSS Module(针对 .vue 文件)，css-loader 中也可以设置 CSS Module(针对 .js/.jsx 文件)
-// 使用 eslint + eslint-config-standard + eslint-plugin-vue 规范代码风格
-// 由于 eslint 不支持 Vue 语法和某些 ES6 语法，所以需要使用 vue-eslint-parser、babel-eslint 来进行解析支持
-// 开发时我们需要验证文件的格式，使用 eslint-loader 在代码保存前进行格式验证，验证不通过就报错
-// 安装并设置 .editorconfig 后可以在我们保存代码时根据这个文件的配置来进行格式化并保存
-// 安装并设置 husky 可以在我们代码提交前进行代码格式检测
+// ! NOTE：
+// * package.json 中使用了 cross-env 统一了不同平台下的环境变量的设置问题
+// * transform-vue-jsx 用以支持 vue 中的 jsx 语法
+// * vue-style-loader 包含了 style-loader 将 CSS 提取到 style 标签的功能
+// * url-loader 依赖 file-loade，配置 url-loader 后，file-lodaer 就不用配置了
+// * 使用 rimraf 删除之前构建的文件
+// * vue-loader 中可以设置 CSS Module(针对 .vue 文件)，css-loader 中也可以设置 CSS Module(针对 .js/.jsx 文件)
+// * 使用 eslint + eslint-config-standard + eslint-plugin-vue 规范代码风格
+// * 由于 eslint 不支持 Vue 语法和某些 ES6 语法，所以需要使用 vue-eslint-parser、babel-eslint 来进行解析支持
+// * 开发时我们需要验证文件的格式，使用 eslint-loader 在代码保存前进行格式验证，验证不通过就报错
+// * 安装并设置 .editorconfig 后可以在我们保存代码时根据这个文件的配置来进行格式化并保存
+// * 安装并设置 husky 可以在我们代码提交前进行代码格式检测
+// * 关于 hash 和 chunkhash 的区别：http://www.cnblogs.com/ihardcoder/p/5623411.html
+// * 懒加载需要用到 () => import 这种方式，需要安装 babel-plugin-syntax-dynamic-import 插件
 
 /**
  * 基础配置
  */
 const baseConfig = {
-  mode: process.env.NODE_ENV || 'production',
-  entry: path.join(__dirname, 'client', 'index'),
+  mode: isDev || isPractice ? 'development' : 'production',
+  entry: isPractice ? path.join(__dirname, 'practice', 'index') : path.join(__dirname, 'client', 'index'),
   output: {
-    filename: isDev ? 'bundle.[hash:8].js' : 'bundle.[chunkhash:8].js',
+    filename: isDev || isPractice ? 'bundle.[hash:8].js' : 'bundle.[chunkhash:8].js',
     path: path.resolve(__dirname, 'dist'),
     chunkFilename: '[name].[chunkhash:8].js'
   },
@@ -41,7 +45,7 @@ const baseConfig = {
       exclude: path.resolve(__dirname, 'node_modules')
     }, {
       test: /.s?css$/,
-      loader: [isDev ? 'vue-style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+      loader: [isDev || isPractice ? 'vue-style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
     }]
   },
   resolve: {
@@ -54,7 +58,7 @@ const baseConfig = {
       filename: 'index.html'
     })
   ],
-  devtool: isDev ? 'hidden-source-map' : 'cheap-module-eval-source-map'
+  devtool: isDev || isPractice ? 'hidden-source-map' : 'cheap-module-eval-source-map'
 }
 
 let config = {}
@@ -62,7 +66,7 @@ let config = {}
 /**
  * 开发环境配置
  */
-if (isDev) {
+if (isDev || isPractice) {
   config = merge(baseConfig, {
     module: {
       rules: [{
@@ -85,15 +89,21 @@ if (isDev) {
         errors: true
       },
       historyApiFallback: true // 非法路径全都跳回 index.html
+      // SPA 应用不设置 historyApiFallback 的话会发生：刷新某个页面（比如 localhost:8080/xxx）时，会请求服务端，但由于是 SPA，服务端没有处理该路由，从而导致 404 的情况
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()] // 使用热模块时，不可以使用 chunkhash
+    plugins: [new webpack.HotModuleReplacementPlugin()], // 使用热模块时，不可以使用 chunkhash
+    // 默认情况下 vue 引入的是 vue.runtime.ems.js，该文件无法编译 template 选项里的 html
+    // 由于练习时会用到 template 选项，所以需要更换 vue 文件
+    resolve: {
+      alias: {
+        'vue': isPractice ? path.join(__dirname, 'node_modules/vue/dist/vue.esm.js') : path.join(__dirname, 'node_modules/vue/dist/vue.runtime.esm.js')
+      }
+    }
   })
-}
-
-/**
- * 生产环境配置
- */
-if (!isDev) {
+} else {
+  /**
+   * 生产环境配置
+   */
   config = merge(baseConfig, {
     module: {
       rules: [{ // 图片压缩和输出控制

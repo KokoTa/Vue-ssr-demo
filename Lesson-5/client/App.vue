@@ -1,16 +1,15 @@
 <template>
   <div id="test">
-    <Todo />
+    <RouterLink to="/Todo">
+      TODO
+    </RouterLink>
+    <RouterView />
   </div>
 </template>
 
 <script>
-import Todo from './todo/Todo'
 
 export default {
-  components: {
-    Todo
-  },
   data () {
     return {
       text: 'Hello World'
