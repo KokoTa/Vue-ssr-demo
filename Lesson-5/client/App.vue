@@ -1,19 +1,23 @@
 <template>
   <div id="test">
-    <RouterLink to="/Todo">
-      TODO
-    </RouterLink>
     <RouterView />
+    {{ num }}
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
   data () {
     return {
       text: 'Hello World'
     }
+  },
+  computed: {
+    ...mapState({
+      num: state => state.mA.num
+    })
   }
 }
 </script>

@@ -10,10 +10,14 @@
 
 * Lesson-4：官方服务端渲染demo。[文档地址](https://ssr.vuejs.org/zh/structure.html)
 
-* Lesson-5：完成一个 TODO 应用。
+* Lesson-5：原生服务端渲染完成一个 TODO 应用。
+
+* Lesson-6：使用 Nuxt 框架实现路由鉴权(Session/Token)。
 
 **Note1**：Lesson-1 ~ Lesson-4 基于 Webpack3，Lesson-5 基于 Webpack4。
 
 **Note2**：Lesson-1 ~ Lesson-3 的 package.json 放置在项目根目录下，其余的都是放置在各自目录中。
 
 **Note3**：Lesson-4 对 SSR 进行了大概的描述和实现。Lesson-5 其进行了更为高级和详细的编写。
+
+**Note4**：Lesson-6 使用了服务端渲染框架 Nuxt，用于实际的生产开发
