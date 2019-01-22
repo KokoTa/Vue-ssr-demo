@@ -14,6 +14,8 @@
 
 * Lesson-6：使用 Nuxt 框架实现路由鉴权(Session/Token)。
 
+* Lesson-7：使用 prerender-spa-plugin 完成部分页面预渲染。
+
 **Note1**：Lesson-1 ~ Lesson-4 基于 Webpack3，Lesson-5 基于 Webpack4。
 
 **Note2**：Lesson-1 ~ Lesson-3 的 package.json 放置在项目根目录下，其余的都是放置在各自目录中。
