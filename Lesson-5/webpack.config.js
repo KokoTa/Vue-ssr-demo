@@ -4,7 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const merge = require('webpack-merge')
+const VueServerRender = require('vue-server-renderer/client-plugin')
 
+// 是否为开发环境
 const isDev = process.env.NODE_ENV === 'development'
 // practice 环境是用来练习 Vue API 的环境，配置上和开发环境有一点差异
 const isPractice = process.env.NODE_ENV === 'practice'
@@ -24,6 +26,9 @@ const isPractice = process.env.NODE_ENV === 'practice'
 // * 关于 hash 和 chunkhash 的区别：http://www.cnblogs.com/ihardcoder/p/5623411.html
 // * 懒加载需要用到 () => import 这种方式，需要安装 babel-plugin-syntax-dynamic-import 插件
 
+// ! NOTE2:
+// * 该文件作为服务端渲染的 client 端配置
+
 /**
  * 基础配置
  */
@@ -33,12 +38,16 @@ const baseConfig = {
   output: {
     filename: isDev || isPractice ? 'bundle.[hash:8].js' : 'bundle.[chunkhash:8].js',
     path: path.resolve(__dirname, 'dist'),
-    chunkFilename: '[name].[chunkhash:8].js'
+    chunkFilename: '[name].[chunkhash:8].js',
+    publicPath: '/public/'
   },
   module: {
     rules: [{
       test: /.vue$/,
-      loader: 'vue-loader'
+      loader: 'vue-loader',
+      options: {
+        extractCSS: true
+      }
     }, {
       test: /\.jsx?$/,
       loader: 'babel-loader',
@@ -56,7 +65,8 @@ const baseConfig = {
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: 'index.html'
-    })
+    }),
+    new VueServerRender()
   ],
   devtool: isDev || isPractice ? 'hidden-source-map' : 'cheap-module-eval-source-map'
 }
@@ -131,8 +141,8 @@ if (isDev || isPractice) {
       }]
     },
     plugins: [
-      new webpack.DefinePlugin({ // 替换源代码为直接常量
-        'process_env': {
+      new webpack.DefinePlugin({ // 替换源代码为直接常量，或者说是让代码可以使用这些变量，因为 process 对象只存在于 node 环境
+        'process.env': {
           NODE_ENV: isDev ? JSON.stringify('development') : JSON.stringify('production')
         }
       }),

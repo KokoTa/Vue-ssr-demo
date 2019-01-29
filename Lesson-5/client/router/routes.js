@@ -1,8 +1,8 @@
-const Todo = () => import('../todo/Todo')
+import Todo from '../todo/Todo' // 当前还不能使用懒加载，会报错
 
 const routes = [
   {
-    path: '/Todo',
+    path: '/',
     component: Todo
   }
 ]
