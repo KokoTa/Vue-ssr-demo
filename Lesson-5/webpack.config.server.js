@@ -15,7 +15,7 @@ const isDev = process.env.NODE_ENV === 'development'
 // * mini-css-extract-plugin 插件目前不支持样式抽取，因此直接使用 vue-style-loader 来将样式插入到 html
 // * 可以使用 nodemon 并设置相关配置来自动重启服务，通过 currently 库可以同时启动两个服务
 // * nodemon 配置：http://www.cnblogs.com/JuFoFu/p/5140302.html
-// * 使用 vue-meta 对头信息做定制，该插件只能在服务端渲染时才可使用，前端单页应用不可用
+// * 使用 vue-meta 对头信息做定制
 // * 其他须知见代码注释
 
 /**

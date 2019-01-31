@@ -28,7 +28,7 @@ const isPractice = process.env.NODE_ENV === 'practice'
 
 // ! NOTE2:
 // * 该文件作为服务端渲染的 client 端配置
-// * 单独构建前端应用时需要注释掉 publicPath，单独构建成功后我们会发现 vue-meta 无效，这是因为该插件只能载 ssr 下使用
+// * 单独构建前端应用时需要注释掉 publicPath
 
 /**
  * 基础配置
@@ -40,8 +40,8 @@ const baseConfig = {
   output: {
     filename: isDev || isPractice ? 'bundle.[hash:8].js' : 'bundle.[chunkhash:8].js',
     path: path.resolve(__dirname, 'dist'),
-    chunkFilename: '[name].[chunkhash:8].js',
-    publicPath: 'http://127.0.0.1:8000/public/' // 单独构建前端应用时需要注释掉
+    chunkFilename: '[name].[chunkhash:8].js'
+    publicPath: 'http://127.0.0.1:8000/public/' // 单独构建前端应用时需要注释掉，即如果想从 8000 端口访问应用的话
   },
   module: {
     rules: [{

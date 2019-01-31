@@ -8,6 +8,7 @@
  * 5. 结合两个 json 生成 renderer
  * 6. 将 renderer、template 传递给 serverRender 进行最后的内容生成
  * 7. 返回给客户端
+ * PS：该文件使用在开发环境
  */
 
 const fs = require('fs')
