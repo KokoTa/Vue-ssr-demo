@@ -1,6 +1,7 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack')
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 该插件目前不支持 ssr，所以直接让样式插入 html 了
 const merge = require('webpack-merge')
 const VueServerRender = require('vue-server-renderer/server-plugin')
 
@@ -10,7 +11,12 @@ const isDev = process.env.NODE_ENV === 'development'
 // 该文件作为服务端渲染的 server 端配置
 // * 该配置基于 webpack.config.js 环境配置
 // * 配置不需要 服务器(devServer)、HTML、压缩
-// * 配置的出入口需要重新配置，另外需要增修一些其他配置(比如 target 等)
+// * 配置的出入口需要重新配置，构建参数要针对 node 环境
+// * mini-css-extract-plugin 插件目前不支持样式抽取，因此直接使用 vue-style-loader 来将样式插入到 html
+// * 可以使用 nodemon 并设置相关配置来自动重启服务，通过 currently 库可以同时启动两个服务
+// * nodemon 配置：http://www.cnblogs.com/JuFoFu/p/5140302.html
+// * 使用 vue-meta 对头信息做定制，该插件只能在服务端渲染时才可使用，前端单页应用不可用
+// * 其他须知见代码注释
 
 /**
  * 基础配置
@@ -38,13 +44,17 @@ const baseConfig = {
       exclude: path.resolve(__dirname, 'node_modules')
     }, {
       test: /.s?css$/,
-      loader: ['vue-style-loader', 'css-loader', 'postcss-loader', 'sass-loader'] // TODO 提取样式，这里是直接加载到 html
+      loader: ['vue-style-loader', 'css-loader', 'postcss-loader', 'sass-loader'] // 提取样式，这里是直接加载到 html
     }]
   },
   resolve: {
     extensions: ['.js', '.jsx', '.vue'] // import 时可以省略的后缀
   },
   plugins: [
+    // new MiniCssExtractPlugin({ // 抽出 CSS
+    //   filename: 'style.[contenthash:8].css',
+    //   chunkFilename: '[name].[contenthash:8].css'
+    // }),
     new VueLoaderPlugin()
   ],
   devtool: 'source-map' // source-map 有调试功能

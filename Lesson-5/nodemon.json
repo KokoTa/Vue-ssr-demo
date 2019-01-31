@@ -1,0 +1,14 @@
+{
+  "restartable" : "rs",
+  "ignore": [
+    "node_modules",
+    "client",
+    "doc",
+    "practice"
+  ],
+  "verbose": true,
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js json ejs"
+}

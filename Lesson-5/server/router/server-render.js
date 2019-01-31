@@ -1,7 +1,7 @@
 /**
  * 说明：
- * 1. 传递上下文生成内容
- * 2. 注入内容到 html 模板
+ * 1. 生成内容
+ * 2. 内容注入到 html 模板
  * 3. 返回给客户端
  */
 
@@ -16,7 +16,7 @@ module.exports = async (ctx, renderer, template) => {
   }
 
   try {
-    const appString = await renderer.renderToString(context) // context 传入 server-entry.js，渲染的到内容
+    const appString = await renderer.renderToString(context) // context 传入 server-entry.js，最后渲染出内容
     const html = ejs.render(template, { // 注入内容到模板
       appString,
       style: context.renderStyles(), // 传入 renderToString 后，context 新增了一些 render 方法

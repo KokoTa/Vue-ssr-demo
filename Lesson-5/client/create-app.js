@@ -8,6 +8,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+import Meta from 'vue-meta' // 该插件只能在服务端渲染下可用，因此构建入口不能使用 index.js(因为它是前端单页的构建入口)
 import App from './App'
 import createRouter from './router/router'
 import createStore from './store/store'
@@ -16,6 +17,7 @@ import './assets/styles/style.scss'
 
 Vue.use(VueRouter) // 使用 vue-router
 Vue.use(Vuex) // 使用 vuex
+Vue.use(Meta) // 使用 vue-meta
 
 export default () => {
   const router = createRouter() // 创建一个 vue-router 实例

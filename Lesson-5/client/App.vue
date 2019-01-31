@@ -9,6 +9,9 @@
 import { mapState } from 'vuex'
 
 export default {
+  metaInfo: {
+    title: 'Meta Info'
+  },
   data () {
     return {
       text: 'Hello World'
