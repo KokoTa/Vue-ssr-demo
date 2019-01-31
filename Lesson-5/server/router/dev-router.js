@@ -50,7 +50,7 @@ const handleSSR = async (ctx) => {
   const template = fs.readFileSync(path.join(__dirname, '../server.template.ejs'), 'utf-8')
   // 在开发时，我们需要获取 client 服务器生成的 client json 文件，由于是动态生成的，这里我们直接请求 client server 来获取
   const clientRequest = await axios.get(
-    'http://127.0.0.1:8000/public/vue-ssr-client-manifest.json'
+    'http://127.0.0.1:8000/client-build/vue-ssr-client-manifest.json'
   )
   const clientManifest = clientRequest.data
   const renderer = VueServerRender.createBundleRenderer(bundle, {

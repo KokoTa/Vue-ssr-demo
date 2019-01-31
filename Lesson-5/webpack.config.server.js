@@ -1,7 +1,7 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack')
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 该插件目前不支持 ssr，所以直接让样式插入 html 了
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const merge = require('webpack-merge')
 const VueServerRender = require('vue-server-renderer/server-plugin')
 
@@ -28,7 +28,7 @@ const baseConfig = {
   output: {
     libraryTarget: 'commonjs2', // 以 commonjs 规范打包
     filename: 'server-entry.js',
-    path: path.resolve(__dirname, '../server-build')
+    path: path.resolve(__dirname, './server-build')
   },
   externals: Object.keys(require('./package.json').dependencies), // 不打包 vue、vuex、vue-router 等依赖到代码里，因为在 node 下可以直接引用 npm 包
   module: {
@@ -44,17 +44,22 @@ const baseConfig = {
       exclude: path.resolve(__dirname, 'node_modules')
     }, {
       test: /.s?css$/,
-      loader: ['vue-style-loader', 'css-loader', 'postcss-loader', 'sass-loader'] // 提取样式，这里是直接加载到 html
+      loader: [{
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+          publicPath: '/client-build/' // 设置 CSS 引用静态文件的路径
+        }
+      }, 'css-loader', 'postcss-loader', 'sass-loader'] // 提取样式，这里是直接加载到 html
     }]
   },
   resolve: {
     extensions: ['.js', '.jsx', '.vue'] // import 时可以省略的后缀
   },
   plugins: [
-    // new MiniCssExtractPlugin({ // 抽出 CSS
-    //   filename: 'style.[contenthash:8].css',
-    //   chunkFilename: '[name].[contenthash:8].css'
-    // }),
+    new MiniCssExtractPlugin({ // 抽出 CSS
+      filename: 'style.[contenthash:8].css',
+      chunkFilename: '[name].[contenthash:8].css'
+    }),
     new VueLoaderPlugin()
   ],
   devtool: 'source-map' // source-map 有调试功能

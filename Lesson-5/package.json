@@ -7,10 +7,11 @@
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server",
     "dev:server": "nodemon server/server.js",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
-    "practice": "cross-env NODE_ENV=practice webpack-dev-server",
     "build:client": "rimraf client-build && cross-env NODE_ENV=production webpack --config webpack.config.js",
     "build:server": "rimraf server-build && cross-env NODE_ENV=production webpack --config webpack.config.server.js",
     "build": "npm run build:client && npm run build:server",
+    "start": "cross-env NODE_ENV=production node server/server.js",
+    "practice": "cross-env NODE_ENV=practice webpack-dev-server",
     "lint": "eslint --ext .js --ext .jsx --ext .vue ./client",
     "lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue ./client",
     "pre-commit": "npm run lint"

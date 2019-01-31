@@ -7,7 +7,7 @@ const path = require('path')
 const Koa = require('koa')
 const KoaSend = require('koa-send')
 const app = new Koa()
-const pageRouter = require('./router/dev-router')
+const staticRouter = require('./router/static')
 
 const HOST = process.env.HOST || '0.0.0.0'
 const PORT = process.env.PORT || 3333
@@ -22,6 +22,15 @@ app.use(async (ctx, next) => {
   }
 })
 
+// 挂载路由
+app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
+
+let pageRouter
+if (isDev) {
+  pageRouter = require('./router/dev-router')
+} else {
+  pageRouter = require('./router/pro-router')
+}
 // 挂载路由
 app.use(pageRouter.routes()).use(pageRouter.allowedMethods())
 

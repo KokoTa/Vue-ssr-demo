@@ -29,6 +29,9 @@ const isPractice = process.env.NODE_ENV === 'practice'
 // ! NOTE2:
 // * 该文件作为服务端渲染的 client 端配置
 // * 单独构建前端应用时需要注释掉 publicPath
+// * 生产环境时 publicPath 需要修改，修改后需要对静态资源进行返回设置，见 static.js
+// * 生产构建 OK 后会发现 CSS 文件里引用的图片加载不出来，这时候是因为指定的静态路径不正确，该 demo 中的静态文件夹是 client-build
+// * 构建时注意要设置抽离 CSS 的静态文件的路径，否则生产环境下会发生引用不到图片的问题，同时注意前后端配置要统一，否则产生的 json 中的路径引用会不一致
 
 /**
  * 基础配置
@@ -40,8 +43,9 @@ const baseConfig = {
   output: {
     filename: isDev || isPractice ? 'bundle.[hash:8].js' : 'bundle.[chunkhash:8].js',
     path: path.resolve(__dirname, 'client-build'),
-    chunkFilename: '[name].[chunkhash:8].js'
-    // publicPath: 'http://127.0.0.1:8000/public/' // 单独构建前端应用时需要注释掉，即如果想从 8000 端口访问应用的话
+    chunkFilename: '[name].[chunkhash:8].js',
+    // publicPath: 'http://127.0.0.1:8000/client-build/' // 单独构建前端应用时需要注释掉，即如果想从 8000 端口访问应用的话
+    publicPath: '/client-build/'
   },
   module: {
     rules: [{
@@ -56,7 +60,12 @@ const baseConfig = {
       exclude: path.resolve(__dirname, 'node_modules')
     }, {
       test: /.s?css$/,
-      loader: [isDev || isPractice ? 'vue-style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+      loader: [isDev || isPractice ? 'vue-style-loader' : {
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+          publicPath: '/client-build/' // 设置 CSS 引用静态文件的路径
+        }
+      }, 'css-loader', 'postcss-loader', 'sass-loader']
     }]
   },
   resolve: {
