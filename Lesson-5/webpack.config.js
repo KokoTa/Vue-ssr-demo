@@ -29,7 +29,7 @@ const isPractice = process.env.NODE_ENV === 'practice'
 // ! NOTE2:
 // * 该文件作为服务端渲染的 client 端配置
 // * 单独构建前端应用时需要注释掉 publicPath
-// * 生产环境时 publicPath 需要修改，修改后需要对静态资源进行返回设置，见 static.js
+// * 生产环境时 publicPath 需要修改，修改后需要对静态资源进行返回设置，见 server/router/static.js
 // * 生产构建 OK 后会发现 CSS 文件里引用的图片加载不出来，这时候是因为指定的静态路径不正确，该 demo 中的静态文件夹是 client-build
 // * 构建时注意要设置抽离 CSS 的静态文件的路径，否则生产环境下会发生引用不到图片的问题，同时注意前后端配置要统一，否则产生的 json 中的路径引用会不一致
 
