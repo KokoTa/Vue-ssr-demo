@@ -5,10 +5,36 @@
       <Header />
       <Main />
       <Footer />
+
       <!-- <notification content="test" /> -->
       <button @click="notify">
         get notify
       </button>
+
+      <!-- tabs示例 -->
+      <tabs
+        :value="tabValue"
+        @change="handleChange"
+      >
+        <tab
+          label="tab1"
+          index="1"
+        >
+          <article>content1</article>
+        </tab>
+        <tab index="2">
+          <span slot="label">
+            tab2
+          </span>
+          <article>content2</article>
+        </tab>
+        <tab
+          label="tab3"
+          index="3"
+        >
+          <article>content3</article>
+        </tab>
+      </tabs>
     </div>
   </div>
 </template>
@@ -25,7 +51,9 @@ export default {
     Footer
   },
   data () {
-    return {}
+    return {
+      tabValue: '1'
+    }
   },
   methods: {
     notify () {
@@ -33,6 +61,10 @@ export default {
         content: 'test $notify',
         btn: 'close'
       })
+    },
+    handleChange (index) {
+      console.log(index)
+      this.tabValue = index
     }
   }
 }
