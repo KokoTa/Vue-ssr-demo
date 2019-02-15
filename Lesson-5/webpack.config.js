@@ -44,8 +44,8 @@ const baseConfig = {
     filename: isDev || isPractice ? 'bundle.[hash:8].js' : 'bundle.[chunkhash:8].js',
     path: path.resolve(__dirname, 'client-build'),
     chunkFilename: '[name].[chunkhash:8].js',
-    // publicPath: 'http://127.0.0.1:8000/client-build/' // 单独构建前端应用时需要注释掉，即如果想从 8000 端口访问应用的话
-    publicPath: '/client-build/'
+    publicPath: 'http://127.0.0.1:8000/client-build/' // 开发模式下使用这个
+    // publicPath: '/client-build/' // 生产环境和前端单独环境下使用这个
   },
   module: {
     rules: [{
@@ -109,8 +109,11 @@ if (isDev || isPractice) {
         warnings: true,
         errors: true
       },
-      historyApiFallback: true // 非法路径全都跳回 index.html
+      historyApiFallback: true, // 非法路径全都跳回 index.html
       // SPA 应用不设置 historyApiFallback 的话会发生：刷新某个页面（比如 localhost:8080/xxx）时，会请求服务端，但由于是 SPA，服务端没有处理该路由，从而导致 404 的情况
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
     },
     plugins: [new webpack.HotModuleReplacementPlugin()], // 使用热模块时，不可以使用 chunkhash
     // 默认情况下 vue 引入的是 vue.runtime.ems.js，该文件无法编译 template 选项里的 html

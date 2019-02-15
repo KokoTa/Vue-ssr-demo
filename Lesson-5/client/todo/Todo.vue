@@ -5,6 +5,10 @@
       <Header />
       <Main />
       <Footer />
+      <!-- <notification content="test" /> -->
+      <button @click="notify">
+        get notify
+      </button>
     </div>
   </div>
 </template>
@@ -22,6 +26,14 @@ export default {
   },
   data () {
     return {}
+  },
+  methods: {
+    notify () {
+      this.$notify({
+        content: 'test $notify',
+        btn: 'close'
+      })
+    }
   }
 }
 </script>

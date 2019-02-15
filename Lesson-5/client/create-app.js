@@ -12,12 +12,15 @@ import Meta from 'vue-meta'
 import App from './App'
 import createRouter from './router/router'
 import createStore from './store/store'
+import Notification from './components/notification'
 
 import './assets/styles/style.scss'
 
 Vue.use(VueRouter) // 使用 vue-router
 Vue.use(Vuex) // 使用 vuex
 Vue.use(Meta) // 使用 vue-meta
+
+Vue.use(Notification) // 自定义组件
 
 export default () => {
   const router = createRouter() // 创建一个 vue-router 实例
