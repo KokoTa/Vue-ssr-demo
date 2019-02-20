@@ -1,3 +1,6 @@
+/**
+ * 静态文件路由
+ */
 const Router = require('koa-router')
 const KoaSend = require('koa-send')
 
