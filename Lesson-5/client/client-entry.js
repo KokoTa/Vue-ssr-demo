@@ -10,7 +10,12 @@
 import createApp from './create-app'
 import bus from './util/bus'
 
-const { app, router } = createApp()
+const { app, router, store } = createApp()
+
+// 如果后端把数据传入到模板中
+if (window.__INITIAL_STATE__) {
+  store.replaceState(window.__INITIAL_STATE__)
+}
 
 // 监听事件，跳转到登录页
 // 前端路由跳转的资源和状态的情况和单页应用一样

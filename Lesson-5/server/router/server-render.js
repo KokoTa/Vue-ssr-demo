@@ -20,7 +20,8 @@ module.exports = async (ctx, renderer, template) => {
     const html = ejs.render(template, { // 注入内容到模板
       appString,
       style: context.renderStyles(), // 传入 renderToString 后，context 新增了一些 render 方法
-      scripts: context.renderScripts()
+      scripts: context.renderScripts(),
+      initialState: context.renderState()
     })
 
     ctx.body = html

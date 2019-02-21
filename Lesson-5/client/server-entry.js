@@ -26,10 +26,9 @@ export default (context) => {
           })
         }
       })).then(() => {
-        console.log(store.state.mA)
+        context.state = store.state // 把状态引入到上下文中，放到 html 里
+        resolve(app) // 此时渲染的 html 就带有 todo 列表的内容了
       })
-
-      resolve(app)
     })
   })
 }
