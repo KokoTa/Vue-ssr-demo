@@ -8,8 +8,14 @@
  * 6. 如果只是单独构建前端(入口为该文件或index.js，不构建后端)，并想从 8000 端口访问实例，那么需要注释掉 publicPath，否则加载不到外链
  */
 import createApp from './create-app'
+import bus from './util/bus'
 
 const { app, router } = createApp()
+
+// 监听事件，跳转到登录页
+bus.$on('auth', () => {
+  router.push('/Login')
+})
 
 router.onReady(() => {
   app.$mount('#app')
