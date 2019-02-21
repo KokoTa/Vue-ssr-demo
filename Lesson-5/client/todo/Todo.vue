@@ -66,6 +66,10 @@ export default {
       console.log(index)
       this.tabValue = index
     }
+  },
+  // 见 server-entry.js
+  asyncData ({ store }) {
+    return store.dispatch('fetchTodos')
   }
 }
 </script>

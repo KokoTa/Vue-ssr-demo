@@ -22,6 +22,7 @@ const handleRequest = (request) => {
         resolve(data.data)
       })
       .catch((err) => { // axios 除了 200 - 300 之间的状态吗都会直接报错
+        console.log(err, '------------')
         const res = err.response
         if (res.status === 401) {
           return reject(createError(401, 'need auth'))

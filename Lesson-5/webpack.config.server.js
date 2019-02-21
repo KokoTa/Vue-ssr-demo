@@ -53,6 +53,9 @@ const baseConfig = {
     }]
   },
   resolve: {
+    alias: {
+      'model': path.join(__dirname, './client/model/server-model.js')
+    },
     extensions: ['.js', '.jsx', '.vue'] // import 时可以省略的后缀
   },
   plugins: [

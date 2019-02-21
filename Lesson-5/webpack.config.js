@@ -69,6 +69,9 @@ const baseConfig = {
     }]
   },
   resolve: {
+    alias: {
+      'model': path.join(__dirname, './client/model/client-model.js')
+    },
     extensions: ['.js', '.jsx', '.vue']
   },
   plugins: [

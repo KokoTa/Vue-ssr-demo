@@ -54,7 +54,8 @@ export default {
     }
   },
   created () {
-    this.fetchTodos()
+    // 该功能在服务端那边获取
+    // this.fetchTodos()
   },
   methods: {
     ...mapActions(['fetchTodos', 'addTodo', 'updateTodo', 'deleteTodo', 'deleteAllCompleted']),

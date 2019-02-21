@@ -1,10 +1,30 @@
 {
   "presets": [
-    "env",
+    // "env",
     "stage-3"
   ],
   "plugins": [
     "transform-vue-jsx",
     "syntax-dynamic-import"
-  ]
+  ],
+  "env": {
+    "browser": {
+      "presets": [
+        "env", {
+          "target": {
+            "browser": ["last 2 versions", "safari >= 7"]
+          }
+        }
+      ]
+    },
+    "node": {
+      "presets": [
+        "env", {
+          "target": {
+            "node": "current"
+          }
+        }
+      ]
+    }
+  }
 }

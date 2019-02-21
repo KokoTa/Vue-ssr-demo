@@ -1,4 +1,4 @@
-import model from '../../model/client-model'
+import model from 'model'
 import notify from '../../components/notification/extend'
 import bus from '../../util/bus'
 
@@ -24,7 +24,7 @@ export default {
   // 获取所有 todos
   fetchTodos ({ commit }) {
     commit('showLoading')
-    model.getAllTodos()
+    return model.getAllTodos()
       .then((data) => {
         commit('fillTodo', data)
         commit('hideLoading')
