@@ -1,5 +1,5 @@
 export default {
-  updateNum (state, num) {
-    state.num = num
+  fillTodo (state, todos) {
+    state.todos = todos
   }
 }

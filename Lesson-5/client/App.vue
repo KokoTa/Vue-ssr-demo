@@ -1,7 +1,7 @@
 <template>
   <div id="test">
     <RouterView />
-    {{ num }}
+    Vuex：{{ num }}
   </div>
 </template>
 
@@ -27,6 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 #test {
+  overflow: hidden;
   height: 100%;
   background: url("./assets/images/1.jpg") center/cover no-repeat;
 }

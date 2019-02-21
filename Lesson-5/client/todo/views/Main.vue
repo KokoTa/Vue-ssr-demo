@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import Item from '../components/Item'
 import Tabs from '../components/Tabs'
 
@@ -35,11 +36,13 @@ export default {
   },
   data () {
     return {
-      todos: [],
       filter: 'all'
     }
   },
   computed: {
+    ...mapState({
+      todos: state => state.mA.todos
+    }),
     filterTodos () {
       if (this.filter === 'all') return this.todos
       if (this.filter === 'active') {
@@ -51,7 +54,11 @@ export default {
       return false
     }
   },
+  created () {
+    this.fetchTodos()
+  },
   methods: {
+    ...mapActions(['fetchTodos']),
     handleAddTodo (e) {
       this.todos.unshift({
         id: id++,

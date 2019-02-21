@@ -12,6 +12,8 @@ let instances = []
 // 每个实例都要设置唯一标识符
 let id = 1
 
+console.warn('notify import') // 测试 notify 这个 js 引入的次数，测试结果为只有一次
+
 // 删除实例函数
 const removeInstance = (instance) => {
   if (!instance) return
