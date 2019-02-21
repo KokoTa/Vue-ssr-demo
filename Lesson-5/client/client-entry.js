@@ -13,6 +13,7 @@ import bus from './util/bus'
 const { app, router } = createApp()
 
 // 监听事件，跳转到登录页
+// 前端路由跳转的资源和状态的情况和单页应用一样
 bus.$on('auth', () => {
   router.push('/Login')
 })

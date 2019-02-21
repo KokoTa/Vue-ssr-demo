@@ -12,7 +12,7 @@ userRouter
       ctx.session.user = user
       ctx.body = {
         success: true,
-        user
+        data: user
       }
     } else {
       ctx.status = 400

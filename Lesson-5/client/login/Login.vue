@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data () {
     return {
@@ -44,9 +46,15 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['login']),
     handleSubmit () {
       if (this.validate()) {
-
+        this.login({
+          username: this.username,
+          password: this.password
+        }).then(() => {
+          this.$router.push('/Todo')
+        })
       }
     },
     validate () {
