@@ -79,9 +79,10 @@ export default {
       // 由于 todo 是状态里的数据，因此不能直接更改后传递
       this.updateTodo({
         id: todo.id,
-        todo: Object.assign({}, todo, {
+        todo: {
+          ...todo,
           completed: !todo.completed
-        })
+        }
       })
     },
     handleToggleFilter (state) { // 过滤 todo

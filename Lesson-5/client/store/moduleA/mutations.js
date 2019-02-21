@@ -18,5 +18,12 @@ export default {
   },
   deleteAllCompleted (state) {
     state.todos = state.todos.filter(t => !t.completed)
+  },
+
+  showLoading (state) {
+    state.loading = true
+  },
+  hideLoading (state) {
+    state.loading = false
   }
 }

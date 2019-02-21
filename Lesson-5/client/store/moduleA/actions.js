@@ -15,7 +15,7 @@ const handleError = (err) => {
     // 但 SSR 则不然，原因是我们这里是 前端路由的跳转，后台并不会收到目标路由的请求，可以说和单页应用很像了
   } else {
     notify({
-      content: '错误'
+      content: '请求发生了错误'
     })
   }
 }
@@ -23,16 +23,20 @@ const handleError = (err) => {
 export default {
   // 获取所有 todos
   fetchTodos ({ commit }) {
+    commit('showLoading')
     model.getAllTodos()
       .then((data) => {
         commit('fillTodo', data)
+        commit('hideLoading')
       })
       .catch((err) => {
         handleError(err)
+        commit('hideLoading')
       })
   },
   // 登录
   login ({ commit }, { username, password }) {
+    commit('showLoading')
     return new Promise((resolve, reject) => { // 这里加 Promise 是为了后续的跳转
       model.login(username, password)
         .then((data) => {
@@ -40,55 +44,67 @@ export default {
           notify({
             content: '登陆成功'
           })
+          commit('hideLoading')
           resolve()
         })
         .catch((err) => { // 这里捕获错误后，后面调用就不用捕获了
           handleError(err)
+          commit('hideLoading')
           reject(err)
         })
     })
   },
   // 新增 todo
   addTodo ({ commit }, todo) {
+    commit('showLoading')
     model.addTodo(todo)
       .then((data) => {
         commit('addTodo', data)
         notify({
           content: '新增了一条 todo'
         })
+        commit('hideLoading')
       })
       .catch((err) => {
         handleError(err)
+        commit('hideLoading')
       })
   },
   // 更新 todo
   updateTodo ({ commit }, { id, todo }) {
+    commit('showLoading')
     model.updateTodo(id, todo)
       .then((data) => {
         commit('updateTodo', { id, todo: data })
         notify({
           content: '更新了一条 todo'
         })
+        commit('hideLoading')
       })
       .catch((err) => {
         handleError(err)
+        commit('hideLoading')
       })
   },
   // 删除 todo
   deleteTodo ({ commit }, id) {
+    commit('showLoading')
     model.deleteTodo(id)
       .then((data) => {
         commit('deleteTodo', id)
         notify({
           content: '删除了一条 todo'
         })
+        commit('hideLoading')
       })
       .catch((err) => {
         handleError(err)
+        commit('hideLoading')
       })
   },
   // 删除已完成的所有 todo
   deleteAllCompleted ({ commit, state }) {
+    commit('showLoading')
     const todos = state.todos.filter(t => t.completed)
     const ids = todos.map(t => t.id)
     model.deleteAllCompleted(ids)
@@ -97,9 +113,11 @@ export default {
         notify({
           content: '删除已完成的所有 todo'
         })
+        commit('hideLoading')
       })
       .catch((err) => {
         handleError(err)
+        commit('hideLoading')
       })
   }
 }
