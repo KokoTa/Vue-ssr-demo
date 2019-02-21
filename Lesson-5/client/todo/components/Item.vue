@@ -2,9 +2,10 @@
   <div :class="['item', todo.completed ? 'completed' : '']">
     <input
       :id="todo.id"
-      v-model="todo.completed"
+      :checked="todo.completed"
       class="toggle"
       type="checkbox"
+      @click="handleToggle"
     >
     <label
       :for="todo.id"
@@ -36,6 +37,12 @@ export default {
   methods: {
     handleDelete (todo) {
       this.$emit('delete', todo.id)
+    },
+    handleToggle (e) {
+      // 点击时阻止 checkbox 改变值，因为我们改变值是根据状态改变的
+      // console.log(e.target.checked)
+      e.preventDefault()
+      this.$emit('toggle', this.todo)
     }
   }
 }

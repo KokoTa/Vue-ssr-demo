@@ -36,6 +36,7 @@ export default {
     return new Promise((resolve, reject) => { // 这里加 Promise 是为了后续的跳转
       model.login(username, password)
         .then((data) => {
+          commit('login', data)
           notify({
             content: '登陆成功'
           })
@@ -46,5 +47,59 @@ export default {
           reject(err)
         })
     })
+  },
+  // 新增 todo
+  addTodo ({ commit }, todo) {
+    model.addTodo(todo)
+      .then((data) => {
+        commit('addTodo', data)
+        notify({
+          content: '新增了一条 todo'
+        })
+      })
+      .catch((err) => {
+        handleError(err)
+      })
+  },
+  // 更新 todo
+  updateTodo ({ commit }, { id, todo }) {
+    model.updateTodo(id, todo)
+      .then((data) => {
+        commit('updateTodo', { id, todo: data })
+        notify({
+          content: '更新了一条 todo'
+        })
+      })
+      .catch((err) => {
+        handleError(err)
+      })
+  },
+  // 删除 todo
+  deleteTodo ({ commit }, id) {
+    model.deleteTodo(id)
+      .then((data) => {
+        commit('deleteTodo', id)
+        notify({
+          content: '删除了一条 todo'
+        })
+      })
+      .catch((err) => {
+        handleError(err)
+      })
+  },
+  // 删除已完成的所有 todo
+  deleteAllCompleted ({ commit, state }) {
+    const todos = state.todos.filter(t => t.completed)
+    const ids = todos.map(t => t.id)
+    model.deleteAllCompleted(ids)
+      .then(() => {
+        commit('deleteAllCompleted')
+        notify({
+          content: '删除已完成的所有 todo'
+        })
+      })
+      .catch((err) => {
+        handleError(err)
+      })
   }
 }

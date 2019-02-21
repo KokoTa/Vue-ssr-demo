@@ -12,6 +12,7 @@
       :key="todo.id"
       :todo="todo"
       @delete="handleDeleteTodo"
+      @toggle="handleToggleItem"
     />
     <Tabs
       :filter="filter"
@@ -26,8 +27,6 @@
 import { mapState, mapActions } from 'vuex'
 import Item from '../components/Item'
 import Tabs from '../components/Tabs'
-
-let id = 0
 
 export default {
   components: {
@@ -58,23 +57,35 @@ export default {
     this.fetchTodos()
   },
   methods: {
-    ...mapActions(['fetchTodos']),
-    handleAddTodo (e) {
-      this.todos.unshift({
-        id: id++,
-        content: e.target.value.trim(),
+    ...mapActions(['fetchTodos', 'addTodo', 'updateTodo', 'deleteTodo', 'deleteAllCompleted']),
+    handleAddTodo (e) { // 新增 todo
+      const content = e.target.value.trim()
+
+      if (!content) return this.$notify({ content: '请输入内容' })
+      this.addTodo({
+        content,
         completed: false
       })
+
       e.target.value = ''
     },
-    handleDeleteTodo (id) {
-      this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
+    handleDeleteTodo (id) { // 删除 todo
+      this.deleteTodo(id)
     },
-    handleToggleFilter (state) {
+    handleClearCompleted () { // 删除所有已完成
+      this.deleteAllCompleted()
+    },
+    handleToggleItem (todo) { // 更新 todo
+      // 由于 todo 是状态里的数据，因此不能直接更改后传递
+      this.updateTodo({
+        id: todo.id,
+        todo: Object.assign({}, todo, {
+          completed: !todo.completed
+        })
+      })
+    },
+    handleToggleFilter (state) { // 过滤 todo
       this.filter = state
-    },
-    handleClearCompleted () {
-      this.todos = this.todos.filter(todo => !todo.completed)
     }
   }
 }
