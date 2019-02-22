@@ -67,9 +67,14 @@ export default {
       this.tabValue = index
     }
   },
-  // 见 server-entry.js
+  // 见 server-entry.js，此文件调用了该方法
+  // 总之该方法是在后端调用的
   asyncData ({ store }) {
-    return store.dispatch('fetchTodos')
+    // 用户登录了才发送请求
+    if (store.state.mA.user) {
+      return store.dispatch('fetchTodos')
+    }
+    return Promise.resolve()
   }
 }
 </script>

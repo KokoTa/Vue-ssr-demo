@@ -10,6 +10,11 @@ export default (context) => {
   return new Promise((resolve, reject) => {
     const { app, router, store } = createApp()
 
+    // 同步状态到前端
+    if (context.user) {
+      store.state.mA.user = context.user
+    }
+
     router.push(context.url) // 将请求的路径推入 router，即触发了该路由的渲染
 
     router.onReady(() => { // 当路由加载的一切都准备好后，进行其他操作

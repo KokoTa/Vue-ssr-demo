@@ -1,4 +1,4 @@
-import model from 'model'
+import model from 'model' // 该引用见 webpack 配置文件
 import notify from '../../components/notification/extend'
 import bus from '../../util/bus'
 

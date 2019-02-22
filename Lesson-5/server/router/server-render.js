@@ -12,7 +12,8 @@ module.exports = async (ctx, renderer, template) => {
 
   // 渲染上下文
   const context = {
-    url: ctx.path
+    url: ctx.path,
+    user: ctx.session.user // 把用户信息放到上下文，然后在渲染时把该数据传入进去，见 server-entry.js
   }
 
   try {

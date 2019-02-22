@@ -54,8 +54,11 @@ export default {
     }
   },
   created () {
-    // 该功能在服务端那边获取
-    // this.fetchTodos()
+    // 如果后端调用，那么前端就主动调用
+    if (this.todos && this.todos.length) {
+      // 调用后如果发现没登陆，会进行跳转
+      this.fetchTodos()
+    }
   },
   methods: {
     ...mapActions(['fetchTodos', 'addTodo', 'updateTodo', 'deleteTodo', 'deleteAllCompleted']),
