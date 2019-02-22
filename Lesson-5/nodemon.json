@@ -4,7 +4,8 @@
     "node_modules",
     "client",
     "doc",
-    "practice"
+    "practice",
+    "server-build"
   ],
   "verbose": true,
   "env": {
