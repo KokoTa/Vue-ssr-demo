@@ -25,6 +25,7 @@ const isPractice = process.env.NODE_ENV === 'practice'
 // * 安装并设置 husky 可以在我们代码提交前进行代码格式检测
 // * 关于 hash 和 chunkhash 的区别：http://www.cnblogs.com/ihardcoder/p/5623411.html
 // * 懒加载需要用到 () => import 这种方式，需要安装 babel-plugin-syntax-dynamic-import 插件
+// * 可以使用 NamedChunkPlugin 插件给懒加载组件命名，这样打包的时候就不会打成一坨了，而是根据名称进行打包，改变一个组件打包后不影响其他组件的 hash 值
 
 // ! NOTE2:
 // * 该文件作为服务端渲染的 client 端配置
@@ -44,7 +45,8 @@ const baseConfig = {
     filename: isDev || isPractice ? 'bundle.[hash:8].js' : 'bundle.[chunkhash:8].js',
     path: path.resolve(__dirname, 'client-build'),
     chunkFilename: '[name].[chunkhash:8].js',
-    publicPath: 'http://127.0.0.1:8000/client-build/' // 开发模式下使用这个
+    publicPath: isDev ? 'http://127.0.0.1:8000/client-build/' : '/client-build'
+    // publicPath: 'http://127.0.0.1:8000/client-build/' // 开发模式下使用这个
     // publicPath: '/client-build/' // 生产环境和前端单独环境下使用这个
   },
   module: {

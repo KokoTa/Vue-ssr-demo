@@ -34,7 +34,7 @@ webpackServerCompiler.watch({}, (err, stats) => { // 监听 server-entry.js 变�
   )
 
   // ! 将内存文件读取为字符串并变为一个 module 来使用
-  // ! 这是由于使用了 MemoryFS 的情况，正式环境中直接读取输出文件即可，其配置如下
+  // ! 这是由于使用了 MemoryFS，正式环境中直接读取输出文件即可，其配置如下
   delete require.cache[bundlePath] // 重复构建时包会有缓存，要清除缓存
   bundle = require('../../server-build/server-entry.js').default // 引入已经打包好的文件
   // try {

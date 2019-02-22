@@ -3,7 +3,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const merge = require('webpack-merge')
-// const VueServerRender = require('vue-server-renderer/server-plugin')
+const VueServerRender = require('vue-server-renderer/server-plugin')
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -92,8 +92,12 @@ config = merge(baseConfig, {
         VUE_ENV: '"server"' // vue 服务端渲染需要用到该变量
       }
     })
-    // new VueServerRender() // ! no-bundle 下需要注释
   ]
 })
+
+// ! 开发环境用 no-bundle
+if (isDev) {
+  config.plugins.push(new VueServerRender())
+}
 
 module.exports = config

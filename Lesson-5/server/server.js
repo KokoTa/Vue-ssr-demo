@@ -60,7 +60,8 @@ if (isDev) {
   // pageRouter = require('./router/dev-router')
   pageRouter = require('./router/dev-router-no-bundle')
 } else {
-  pageRouter = require('./router/pro-router')
+  // pageRouter = require('./router/pro-router')
+  pageRouter = require('./router/pro-router-no-bundle')
 }
 // 挂载路由
 app.use(pageRouter.routes()).use(pageRouter.allowedMethods())
