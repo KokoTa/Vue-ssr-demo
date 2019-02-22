@@ -69,11 +69,13 @@ export default {
   },
   // 见 server-entry.js，此文件调用了该方法
   // 总之该方法是在后端调用的
-  asyncData ({ store }) {
+  asyncData ({ store, router }) {
     // 用户登录了才发送请求
     if (store.state.mA.user) {
       return store.dispatch('fetchTodos')
     }
+    // 未登录就设置渲染路径为登录页
+    router.replace('/Login')
     return Promise.resolve()
   }
 }

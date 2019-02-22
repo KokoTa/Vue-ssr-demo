@@ -26,12 +26,15 @@ export default (context) => {
       Promise.all(matchedComponents.map(Component => {
         if (Component.asyncData) {
           return Component.asyncData({
-            router: router.currentRoute,
+            route: router.currentRoute,
+            router, // 用于重定向
             store
           })
         }
       })).then(() => {
         context.state = store.state // 把状态引入到上下文中，放到 html 里
+        context.router = router // 用于重定向
+        // 上下文会传回到 server-render.js 中
         resolve(app) // 此时渲染的 html 就带有 todo 列表的内容了
       })
     })

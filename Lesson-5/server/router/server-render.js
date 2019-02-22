@@ -17,7 +17,14 @@ module.exports = async (ctx, renderer, template) => {
   }
 
   try {
-    const appString = await renderer.renderToString(context) // context 传入 server-entry.js，最后渲染出内容
+    const appString = await renderer.renderToString(context) // context 传入 server-entry.js，执行渲染前的操作
+
+    // 如果用户未登录，即未登录时改变了路径导致实际路径和上下文路径不同，那么就进行重定向
+    console.log(context.router.currentRoute.fullPath, ctx.path)
+    if (context.router.currentRoute.fullPath !== ctx.path) {
+      return ctx.redirect(context.router.currentRoute.fullPath)
+    }
+
     const html = ejs.render(template, { // 注入内容到模板
       appString,
       style: context.renderStyles(), // 传入 renderToString 后，context 新增了一些 render 方法
