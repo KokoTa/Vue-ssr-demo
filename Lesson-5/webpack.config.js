@@ -5,6 +5,7 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const merge = require('webpack-merge')
 const VueServerRender = require('vue-server-renderer/client-plugin')
+const cdnConfig = require('./app.config.js').cdn
 
 // 是否为开发环境
 const isDev = process.env.NODE_ENV === 'development'
@@ -45,7 +46,7 @@ const baseConfig = {
     filename: isDev || isPractice ? 'bundle.[hash:8].js' : 'bundle.[chunkhash:8].js',
     path: path.resolve(__dirname, 'client-build'),
     chunkFilename: '[name].[chunkhash:8].js',
-    publicPath: isDev ? 'http://127.0.0.1:8000/client-build/' : '/client-build'
+    publicPath: isDev ? 'http://127.0.0.1:8000/client-build/' : cdnConfig.host
     // publicPath: 'http://127.0.0.1:8000/client-build/' // 开发模式下使用这个
     // publicPath: '/client-build/' // 生产环境和前端单独环境下使用这个
   },
@@ -65,7 +66,7 @@ const baseConfig = {
       loader: [isDev || isPractice ? 'vue-style-loader' : {
         loader: MiniCssExtractPlugin.loader,
         options: {
-          publicPath: '/client-build/' // 设置 CSS 引用静态文件的路径
+          publicPath: cdnConfig.host // 设置 CSS 引用静态文件的路径
         }
       }, 'css-loader', 'postcss-loader', 'sass-loader']
     }]

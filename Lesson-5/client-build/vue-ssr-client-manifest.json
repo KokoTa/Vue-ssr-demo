@@ -1,18 +1,18 @@
 {
-  "publicPath": "/client-build",
+  "publicPath": "http://pngpypvw2.bkt.clouddn.com/",
   "all": [
-    "bundle.b2258525.js",
+    "bundle.4bc6c85b.js",
     "index.html",
-    "main.171927c1.css",
-    "main.b1aad8ab.js",
+    "main.2f3dec43.css",
+    "main.8fb1c7b1.js",
     "resource/1.7802b8c2.jpg",
     "vendors~main.71593090.js"
   ],
   "initial": [
-    "bundle.b2258525.js",
+    "bundle.4bc6c85b.js",
     "vendors~main.71593090.js",
-    "main.171927c1.css",
-    "main.b1aad8ab.js"
+    "main.2f3dec43.css",
+    "main.8fb1c7b1.js"
   ],
   "async": [],
   "modules": {
